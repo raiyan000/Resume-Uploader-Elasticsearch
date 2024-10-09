@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
 
+
+    
 # Create your models here.
 class Roles(models.Model):
     role_name=models.CharField(max_length=100)
@@ -71,4 +74,29 @@ class addCompany(models.Model):
     is_Delete=models.BooleanField(default=False)
     def __str__(self):
         return self.company_name
+    
+    
+    
+class CustomUser(AbstractUser):
+    is_role = models.BooleanField(default=True)
+    is_company = models.BooleanField(default=True)
+    is_location = models.BooleanField(default=True)
+    is_employee = models.BooleanField(default=True)
+    is_resume = models.BooleanField(default=True)
+    is_Delete = models.BooleanField(default=False)
+
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='customuser_set',  
+        blank=True,
+        help_text='The groups this user belongs to.'
+    )
+
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='customuser_permissions_set',  
+        blank=True,
+        help_text='Specific permissions for this user.'
+    )
+
     

@@ -15,7 +15,7 @@ from elasticsearch_dsl.query import MultiMatch
 from django.conf import settings
 from django.core.mail import send_mail
 from .forms import NewUserForm
-# from .forms import EditUserForm
+from .forms import EditUserForm
 
 # Create your views here.
 def login_request(request): 
@@ -46,6 +46,7 @@ def login_request(request):
 def register(request):
   if request.method=="POST":
     form=NewUserForm(request.POST)
+    
     if form.is_valid():
       user=form.save()
       print("form saved")
@@ -144,7 +145,10 @@ def company(request):
   return render(request,"company.html",{"company":company})
 
 def employee(request):
-  return render(request,"employee.html")
+  # employee=CustomUser.objects.filter(is_Delete=False)
+  employee_data=CustomUser.objects.filter(is_Delete=False).order_by('-date_joined')
+  return render(request,"employee.html",{"employee_data":employee_data,"employee":employee})
+
 
 def add_roles(request):
   if request.method=="POST":
@@ -575,13 +579,17 @@ def index(request):
 def add_employee(request):
   if request.method=="POST":
     form=NewUserForm(request.POST)
+    print("form",form)
+
     if form.is_valid():   
       user=form.save(commit=False)
-    
+      print("user",user)
+      print("user1",request.POST)
+  
       user.is_role='roles' in request.POST   
       user.is_location='location' in request.POST   
       user.is_company='company' in request.POST   
-      user.is_employee='employee' in request.POST
+      user.is_employees='employees' in request.POST
       user.is_resume='resume' in request.POST
       user.is_active='active' in request.POST
                 

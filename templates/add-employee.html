@@ -1,0 +1,143 @@
+{% extends 'layout/layout.html' %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% comment %} {% if messages %}
+<div class="messages">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %} {% endcomment %}
+
+
+<div class="row">
+    <div class="card col-md-6 mx-auto mt-4">
+      <div class="container">      
+    <div class="card-header">
+        <div class="card-title">
+            <center><h1>{% if edit_mode %}Edit {% else %}Add {% endif %}Employee</h1></center>
+        </div>
+</div>
+
+    <div class="card-body">
+      <div class="d-flex justify-content-end">
+        <a href="/employees" class="btn btn-outline-primary">
+            <i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i> Back
+        </a>
+    </div>
+
+        <div class="p-2">
+   
+            <form method="POST"
+
+              action="{% if edit_mode %}{% url 'update-employee' instance.id %}{% endif %}">
+              
+              {% csrf_token %}
+
+            <div class="row"> 
+              <div class="col-md-6">   
+
+                {{register_form.first_name.errors}}
+                {{ register_form.first_name.label_tag }}<br>
+                {{ register_form.first_name }}<br> 
+              </div>
+
+              
+              <div class="col-md-6">  
+                {{ register_form.last_name.errors}}
+                {{ register_form.last_name.label_tag}}<br>
+                {{register_form.last_name}}<br>
+
+
+              </div>
+            </div>
+
+              <div class="row"> 
+                  <div class="col-md-6"> 
+                {{ register_form.username.errors }}
+                {{ register_form.username.label_tag }}<br>
+                {{ register_form.username }}<br>
+              </div>
+
+              <div class="col-md-6"> 
+                {{ register_form.email.errors }}
+                {{ register_form.email.label_tag }}<br>
+                {{ register_form.email }}<br>
+              </div>
+            </div>
+
+            <div class="row">     
+              <div class="col-md-6"> 
+                {{ register_form.password1.errors }}
+                {{ register_form.password1.label_tag }}<br>
+                {{ register_form.password1 }}<br>
+              </div>
+
+              <div class="col-md-6"> 
+                {{ register_form.password2.errors }}
+                {{ register_form.password2.label_tag }}<br>
+                {{ register_form.password2 }}<br>
+              </div>
+            </div>
+        
+          <strong>Permissions:</strong><br><br>
+          
+          <div class="row">
+            <div class="col-md-3"> 
+          Roles:<label class="switch">           
+
+         
+            <input type="checkbox" name="roles" value="roles" {% if instance.is_role %}checked{% endif %} >   
+       
+          </label>
+        </div>
+        
+        <div class="col-md-3"> 
+          Location : <label class="switch">           
+            <input type="checkbox" name="location" value="location" {% if instance.is_location %}checked{% endif %} >   
+          </label>
+        </div>
+
+        <div class="col-md-3"> 
+          Company : <label class="switch">           
+            <input type="checkbox" name="company" value="company"  {% if instance.is_company %}checked{% endif %} >   
+          </label>
+        </div>
+
+        <div class="col-md-3"> 
+          Employees : <label class="switch">           
+            <input type="checkbox" name="employees" value="employees"  {% if instance.is_employee %}checked{% endif %} >   
+          </label>
+        </div>
+
+        <div class="col-md-3 mt-2"> 
+          Resume : <label class="switch">           
+            <input type="checkbox" name="resume" value="resume"  {% if instance.is_resume %}checked{% endif %} >   
+          </label>
+        </div>
+
+
+        <div class="col-md-3 mt-2"> 
+          Active : <label class="switch">           
+            <input type="checkbox" name="active" value="active"  {% if instance.is_active %}checked{% endif %} >   
+          </label>
+        </div>
+
+      </div>
+                    <center><button class="btn btn-primary mx-auto mt-4" type="submit">Register</button></center>  
+            </form>
+          </div>
+      </div>
+    </div>	
+</div>
+</div>
+
+{% endblock content %}
+
+
+
+
+

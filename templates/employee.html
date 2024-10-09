@@ -1,0 +1,187 @@
+{% extends 'layout/layout.html' %}
+{% block content %}
+{% load static %}
+
+<!-- page content -->        
+  <div class="text-center" style="text-align: center;">
+    <h1>Employees</h1>
+  </div>
+
+  {% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+    {% endfor %}
+  </div>
+  
+  {% endif %}
+
+  <div class="d-flex justify-content-end">
+  <a href="{% url 'add-employee' %}" class="btn btn-success">Add Employee</a>
+</div>
+{% if employee_data %}
+
+<div class="align-center ml-4 mr-4" >
+
+  
+<table class="table table-hover table-bordered  mt-4">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Username</th>
+      <th>Email</th>
+      {% comment %} <th>Password</th> {% endcomment %}
+      {% comment %} <th>Permissions</th> {% endcomment %}
+      <th>Permissions</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+
+  </thead>
+
+  <tbody>
+  
+    {% for employee in employee_data %}
+  
+    <tr>
+      <td>{{forloop.counter}}</td>
+      <td>{{employee.first_name}}</td>
+      <td>{{employee.last_name}}</td>
+      <td>{{employee.username}}</td>
+      <td>{{employee.email}}</td>
+
+      {% comment %} <td>{{employee.password}} </td>{% endcomment %}
+      
+      
+      {% comment %} <td>
+        
+         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFiles{{employee.id}}" 
+        aria-expanded="false">View Permissions</button>
+
+        <div id="collapseFiles{{employee.id}}" class="collapse">
+          
+          
+          <p>Role {% if employee.is_role %} &nbsp;&nbsp;&nbsp; &#10004;{% else %}&#10006;{% endif %}</p>
+          <p>Location {% if employee.is_location %} &nbsp;&nbsp;&nbsp; &#10004;{% else %}&#10006;{% endif %}</p>
+          <p>Company {% if employee.is_company %}&nbsp;&nbsp;&nbsp; &#10004;{% else %}&#10006;{% endif %}</p>
+          <p>Employee {% if employee.is_employee %}&nbsp;&nbsp;&nbsp; &#10004;{% else %}&#10006;{% endif %}</p>          
+          <p>Resume {% if employee.is_resume %}&nbsp;&nbsp;&nbsp; &#10004;{% else %}&#10006;{% endif %}</p>          
+    
+        </div>
+      </td> {% endcomment %}
+
+      {% comment %} <td>
+
+        <button class="btn btn-link" type="button" 
+                class="btn btn-primary" 
+                data-toggle="modal" 
+                data-target="#Permissions{{employee.id}}"> 
+                View Permissions
+        </button>
+
+        <div class="modal fade" id="Permissions{{employee.id}}"> 
+          <div class="modal-dialog modal-md"> 
+              <div class="modal-content"> 
+                  <div class="modal-header "> 
+                      <h5 class="modal-title ml-4"> 
+                          Employee Permissions 
+                      </h5>
+                      <button type="button" 
+                              class="close" 
+                              data-dismiss="modal"> 
+                              &times;
+                      </button> 
+                  </div> 
+                  <div class="modal-body ml-4"> 
+                      
+                        <p>1 &nbsp; Role {% if employee.is_role %} &nbsp;&nbsp;&nbsp; &#10004;{% else %}&#10006;{% endif %}</p>
+                        <p>2 &nbsp; Location {% if employee.is_location %} &nbsp;&nbsp;&nbsp; &#10004;{% else %}&#10006;{% endif %}</p>
+                        <p>3 &nbsp; Company {% if employee.is_company %}&nbsp;&nbsp;&nbsp; &#10004;{% else %}&#10006;{% endif %}</p>
+                        <p>4 &nbsp; Employee {% if employee.is_employee %}&nbsp;&nbsp;&nbsp; &#10004;{% else %}&#10006;{% endif %}</p>          
+                        <p>5 &nbsp; Resume {% if employee.is_resume %}&nbsp;&nbsp;&nbsp; &#10004;{% else %}&#10006;{% endif %}</p>    
+                      
+                  </div> 
+              </div> 
+          </div> 
+      </div>
+
+      </td> {% endcomment %}
+
+      <td>
+        <button class="btn btn-link" type="button" 
+                class="btn btn-primary" 
+                data-toggle="modal" 
+                data-target="#Permissions{{employee.id}}"> 
+                View Permissions
+        </button>
+    
+        <div class="modal fade" id="Permissions{{employee.id}}"> 
+          <div class="modal-dialog modal-md"> 
+              <div class="modal-content"> 
+                  <div class="modal-header"> 
+                      <h5 class="modal-title ml-4"> 
+                          Employee Permissions 
+                      </h5>
+                      <button type="button" 
+                              class="close" 
+                              data-dismiss="modal"> 
+                              &times;
+                      </button> 
+                  </div> 
+                  <div class="modal-body ml-4"> 
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>Role</td>
+                                    <td>{% if employee.is_role %} &#10004;{% else %}&#10006;{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td>Location</td>
+                                    <td>{% if employee.is_location %} &#10004;{% else %}&#10006;{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td>Company</td>
+                                    <td>{% if employee.is_company %} &#10004;{% else %}&#10006;{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td>Employee</td>
+                                    <td>{% if employee.is_employee %} &#10004;{% else %}&#10006;{% endif %}</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Resume</td>
+                                    <td>{% if employee.is_resume %} &#10004;{% else %}&#10006;{% endif %}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> 
+                </div> 
+            </div> 
+        </div>
+    </td>
+    
+
+        <td>{% if employee.is_active %} Active{% else %}Deactive{% endif %}</td>
+
+      </td>
+            <td><a href="/edit-employee/{{employee.id}}" class="btn btn-info">Edit</a>
+            <a href="/delete-employee/{{employee.id}}" class="btn btn-danger">Delete</a></td>
+
+
+    {% endfor %} 
+     </tr>
+
+  </tbody>
+
+</table>
+
+</div>
+
+
+{% endif %}
+
+
+<!-- /page content -->
+{% endblock %}

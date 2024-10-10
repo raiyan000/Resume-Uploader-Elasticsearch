@@ -22,11 +22,17 @@ def login_request(request):
   if request.method=="POST":
     print("Form was submitted")
     form = AuthenticationForm(request, data=request.POST)
-    if form.is_valid():
-      print(form.is_valid())
+    print("data",request.POST)
+    print("form",form)
+    if form.is_valid():      
+      print("form.is_valid()",form.is_valid())
       username = form.request.POST.get('username')  
+      print("username",username)
       password = form.request.POST.get('password')
+      print("password",password)      
       user = authenticate(username=username, password=password)
+      print("user",user)
+      
       # user=form.save()
       if user:
         login(request,user)

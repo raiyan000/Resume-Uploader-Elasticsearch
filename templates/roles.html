@@ -14,7 +14,7 @@
 
 <!-- /page content -->
 {% if role %}
-<table class="table mt-4">
+<table id="tableID" class="table mt-4">
   <thead>
     <tr>
       <th>#</th>
@@ -42,7 +42,8 @@
         <td>{{roles.created_by}}</td>
         <td>            
           <a href="/edit-roles/{{roles.id}}" class="btn btn-info">Edit</a>
-          <a href="/delete-roles/{{roles.id}}" class="btn btn-danger">Delete</a>
+          <a  onclick="check_delete('/delete-roles/{{roles.id}}')" class="btn btn-danger">Delete</a></td>
+
         </td>
     </tr>
   </tbody>

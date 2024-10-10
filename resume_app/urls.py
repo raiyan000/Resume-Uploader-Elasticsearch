@@ -33,7 +33,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.login_request,name="login"),
     path('register/',views.register,name="register"),
-    path('logout/',views.logout_view,name="logout"),
+    path('logout',views.logout_view,name="logout"),
     path('profile',views.profile,name="profile"),
     
     path('password-reset/', PasswordResetView.as_view(template_name='users/password_reset.html'),name='password-reset'),

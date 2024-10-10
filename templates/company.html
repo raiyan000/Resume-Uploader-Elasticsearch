@@ -8,7 +8,7 @@
   </div>
 
   <div class="d-flex justify-content-end">
-    <a href="{% url 'add-company' %}" class="btn btn-success">Add Company</a>
+    <a href="{% url 'add-company' %}" class="btn btn-success">Add Company</a>    
   </div>
 
 <!-- /page content -->
@@ -16,7 +16,7 @@
 
 {% if company %}
 
-<table class="table mt-4">
+<table id="tableID" class="table mt-4">
   <thead>
     <tr>
       <th>#</th>
@@ -46,7 +46,9 @@
           <td>
 
             <a href="/edit-company/{{companies.id}}" class="btn btn-info">Edit</a>
-            <a href="/delete-company/{{companies.id}}" class="btn btn-danger">Delete</a>
+            <!-- <a href="/delete-company/{{companies.id}}" class="btn btn-danger">Delete</a> -->
+            <a  onclick="check_delete('delete-company/{{companies.id}}')" class="btn btn-danger">Delete</a></td>
+
           
           </td>
       </tr>      

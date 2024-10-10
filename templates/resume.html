@@ -70,7 +70,7 @@
 
 
 {% if resume_data %}
-<table class="table mt-4">
+<table id="tableID" class="table mt-4">
   <thead>
     <tr>
       <th>Role</th>
@@ -116,7 +116,9 @@
    
       <td>
         <a href="/edit-resume/{{resume.id}}" class="btn btn-info">Edit</a>
-        <a href="/delete-resume/{{resume.id}}" class="btn btn-danger">Delete</a>
+        <!-- <a href="/delete-resume/{{resume.id}}" class="btn btn-danger">Delete</a> -->
+        <a  onclick="check_delete('/delete-resume/{{resume.id}}')" class="btn btn-danger">Delete</a></td>
+
       </td> 
 
       

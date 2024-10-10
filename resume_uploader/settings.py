@@ -75,6 +75,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'resume_uploader.wsgi.application'
+AUTH_USER_MODEL='resume_app.CustomUser'
 
 
 # Database

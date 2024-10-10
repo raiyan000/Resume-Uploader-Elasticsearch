@@ -2,6 +2,10 @@
 <html lang="en">
  {% include "layout/head.html" %}
 
+ <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+  
+
+ 
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
@@ -12,6 +16,7 @@
             </div>
             <div class="clearfix"></div>
             <!-- menu profile quick info -->
+
 
             {% if request.user.is_authenticated %}
             <div class="profile clearfix">
@@ -35,13 +40,27 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i>Master<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                      {% if request.user.is_role == True %}
                       <li><a href="/roles">Roles</a></li>
+                      {% endif %}
+
+                      {% if request.user.is_location == True %}
                       <li><a href="/location">Location</a></li>
+                      {% endif %}
+
+                      {% if request.user.is_company == True %}
                       <li><a href="/company">Company</a></li>
+                      {% endif %}
+
+                      {% if request.user.is_employee == True %}
                       <li><a href="/employees">Employees</a></li>
+                      {% endif %}
+
                     </ul>
                   </li>
+                  {% if request.user.is_resume == True %}
                   <li><a href="/resume"><i class="fa fa-edit"></i> Resume <span class="fa fa-chevron-down"></span></a>
+                    {% endif %}
                   </li>
                 </ul>
                 {% endif %}
@@ -87,26 +106,12 @@
         </div>
 
         
-          <div class="row" style="display: inline-block;" >
-          <div class="tile_count">
-
-          </div>
-          </div>
+     
           <!-- /top tiles -->
 
-          <div class="row">
-            <div class="col-md-12 col-sm-12 ">
-              <div class="dashboard_graph">
+          
 
-                <div class="clearfix"></div>
-              </div>
-            </div>
-          </div>
-          <br />
-
-          <div class="row">
-
-          </div>
+          
           {% endblock %}
 
         </div>
@@ -126,8 +131,24 @@
       </div>
     </div>
 
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+      <!-- jQuery -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+      <!-- DataTables JS -->
+      <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+  
+
      <!-- jQuery -->
-    <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- <script src="/static/vendors/jquery/dist/jquery.min.js"></script> -->
     <!-- Bootstrap -->
     <script src="/static/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FastClick -->
@@ -166,6 +187,41 @@
 
     <!-- Custom Theme Scripts -->
     <script src="/static/build/js/custom.min.js"></script>	
+    
+    <script>
+
+      function check_delete(redirect_url)
+      {   
+          Swal.fire({
+              title: "Are you sure?",
+              text: "You won't be able to revert this!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+              if (result.isConfirmed) { 
+                  window.location.href=redirect_url;               
+              }
+              
+            });
+      }  
+    
+    </script>
+    <script> 
+  
+      // Initialize the DataTable 
+      $(document).ready(function () { 
+        $('#tableID').DataTable({ 
+    
+          pageLength: 5,       // Show 5 rows per page
+          lengthMenu: [5, 10, 25, 50, 100],
+          order: [[2, 'asc']] 
+        }); 
+      });  
+    </script> 
+
   </body>
 </html>
 

@@ -1,6 +1,6 @@
 
 resume_files/
 static/
+staticfiles/
 
-
-
+.env
